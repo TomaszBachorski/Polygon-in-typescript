@@ -18,10 +18,19 @@ export class Polygon {
         return Math.sqrt(p * (p - distances[0]) * (p - distances[1]) * (p - distances[2]));
     }
     getPolygonArea(): number {
+        //polygon is convex
         let fullArea: number = 0;
         for (let i = 0; i < this.polygonNumberOfAngels - 2; i++) {
-            fullArea+=this.getTriangleArea(new Array(this.polygonAngles[0], this.polygonAngles[i+1], this.polygonAngles[i+2]));
+            fullArea += this.getTriangleArea(new Array(this.polygonAngles[0], this.polygonAngles[i + 1], this.polygonAngles[i + 2]));
         }
         return fullArea;
+    }
+    getPerimiter(): number {
+        let perimeter: number = 0;
+        for (let i = 0; i < this.polygonNumberOfAngels-1; i++) {
+            perimeter += this.polygonAngles[i].getDistance(this.polygonAngles[i+1])
+        }
+        perimeter+=this.polygonAngles[this.polygonNumberOfAngels-1].getDistance(this.polygonAngles[0]);
+        return perimeter;
     }
 }

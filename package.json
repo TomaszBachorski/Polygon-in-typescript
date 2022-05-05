@@ -11,5 +11,13 @@
   },
   "author": "Tomasz Bachorski",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomaszBachorski/Polygon-in-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TomaszBachorski/Polygon-in-typescript/issues"
+  },
+  "homepage": "https://github.com/TomaszBachorski/Polygon-in-typescript#readme",
   "description": ""
 }

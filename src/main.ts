@@ -9,5 +9,8 @@ let pointD = new Point(0, 0);
 let polygon = new Polygon(4, new Array(pointA, pointB, pointC, pointD));
 let area = polygon.getPolygonArea();
 let perimeter = polygon.getPerimiter();
+let color = polygon.getPolygonColor();
 console.log(area.toFixed(2));
 console.log(perimeter.toFixed(2));
+console.log(color)
+

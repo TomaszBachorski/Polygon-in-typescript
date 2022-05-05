@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Point_1 = require("./Point");
+const Polygon_1 = require("./Polygon");
+let pointA = new Point_1.Point(0, 5);
+let pointB = new Point_1.Point(5, 5);
+let pointC = new Point_1.Point(5, 0);
+let pointD = new Point_1.Point(0, 0);
+let polygon = new Polygon_1.Polygon(4, new Array(pointA, pointB, pointC, pointD));
+let area = polygon.getPolygonArea();
+let perimeter = polygon.getPerimiter();
+let color = polygon.getPolygonColor();
+console.log(area.toFixed(2));
+console.log(perimeter.toFixed(2));
+console.log(color);

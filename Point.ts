@@ -24,5 +24,4 @@ export class Point {
     log() {
         console.log(`X: ${this._x} Y: ${this._y}`);
     }
-
 }

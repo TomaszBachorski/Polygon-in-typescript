@@ -1,21 +1,17 @@
 import { Point } from "./Point";
 
-const colorsOrder: ["r", "g", "b"] =  ["r", "g", "b"] 
+//Default types
+type rgb = "r" | "g" | "b";
 
 export class Polygon {
     private polygonNumberOfAngels: number;
     private polygonAngles: Point[];
-    private polygonColor: PolygonColor;
+    private polygonColor?: PolygonColor;
 
     constructor(n: number, angels: Point[], colors?: [number, number, number]) {
         this.polygonNumberOfAngels = n;
         this.polygonAngles = angels;
-        this.polygonColor = new PolygonColor();
-        if (colors) {
-            for (let i = 0; i<colors.length;i++) {
-                this.polygonColor.setColor(colorsOrder[i], colors[i]);
-            }
-        }
+        if (colors) this.polygonColor = new PolygonColor(...colors);
     }
     private getTriangleArea(points: Point[]): number {
         let distances = new Array();
@@ -26,8 +22,16 @@ export class Polygon {
         let p: number = distances.reduce((a, b) => a + b, 0) / 2;
         return Math.sqrt(p * (p - distances[0]) * (p - distances[1]) * (p - distances[2]));
     }
+    printPolygonInfo(): void {
+        console.log(`Number of angels: ${this.polygonNumberOfAngels}`);
+        console.log("Angels:");
+        this.polygonAngles.forEach((angel)=>angel.logAsArray());
+        console.log("Polygon color: ");
+        this.polygonColor ? this.polygonColor.printColors() : console.log("undefined");
+        console.log(`Area: ${this.getPolygonArea().toFixed(2)}`);
+        console.log(`Perimeter: ${this.getPerimiter().toFixed(2)}`);
+    }
     getPolygonArea(): number {
-        //convex polygon
         let fullArea: number = 0;
         for (let i = 0; i < this.polygonNumberOfAngels - 2; i++) {
             fullArea += this.getTriangleArea(new Array(this.polygonAngles[0], this.polygonAngles[i + 1], this.polygonAngles[i + 2]));
@@ -43,29 +47,35 @@ export class Polygon {
         return perimeter;
     }
     getPolygonColor(): PolygonColor {
+        if (!this.polygonColor) throw new Error("Polygon color was not defined");
         return this.polygonColor;
     }
-    
 }
 
 class PolygonColor {
     private r;
     private g;
     private b;
-    constructor(_r?: number, _g?: number, _b?: number) {
-        this.r = _r || 0;
-        this.g = _g || 0;
-        this.b = _b || 0;
+    constructor(_r: number, _g: number, _b: number) {
+        this.r = this.setColorConstructor(_r) || 0;
+        this.g = this.setColorConstructor(_g) || 0;
+        this.b = this.setColorConstructor(_b) || 0;
     }
-    getColor(colorRepresentation: "r" | "g" | "b") {
+    private setColorConstructor(value: number): number {
+        if (value<0 || value>255) throw new Error("Color representation must be higher than 0 and lower than 255(rgb)");
+        return value;
+    }
+    getColor(colorRepresentation: rgb): number {
         return this[colorRepresentation];
     }
-    getColors() {
+    getColors(): number[] {
         return new Array(this.r, this.g, this.b);
     }
-    setColor(colorRepresentation: "r" | "g" | "b", value: number): void {
-        if (value<0 || value>255) 
-            throw {error: "Color representation is higher than 255 or lower than 0", errno: 1};
-        this[colorRepresentation] = value
+    setColor(colorRepresentation: rgb, value: number): void {
+        if (value<0 || value>255) throw new Error("Color representation must be higher than 0 and lower than 255(rgb)");
+        this[colorRepresentation] = value;
+    }
+    printColors(): void {
+        console.log(`rgb(${this.r}, ${this.g}, ${this.b})`)
     }
 }

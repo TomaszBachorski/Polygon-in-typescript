@@ -24,5 +24,8 @@ class Point {
     log() {
         console.log(`X: ${this._x} Y: ${this._y}`);
     }
+    logAsArray() {
+        console.log(`[${this._x}, ${this._y}]`);
+    }
 }
 exports.Point = Point;

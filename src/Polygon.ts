@@ -4,13 +4,13 @@ import { Point } from "./Point";
 type rgb = "r" | "g" | "b";
 
 export class Polygon {
-    private polygonNumberOfAngels: number;
+    private polygonNumberOfVertices: number;
     private polygonAngles: Point[];
     private polygonColor?: PolygonColor;
 
-    constructor(n: number, angels: Point[], colors?: [number, number, number]) {
-        this.polygonNumberOfAngels = n;
-        this.polygonAngles = angels;
+    constructor(n: number, vertices: Point[], colors?: [number, number, number]) {
+        this.polygonNumberOfVertices = n;
+        this.polygonAngles = vertices;
         if (colors) this.polygonColor = new PolygonColor(...colors);
     }
     private getTriangleArea(points: Point[]): number {
@@ -23,9 +23,9 @@ export class Polygon {
         return Math.sqrt(p * (p - distances[0]) * (p - distances[1]) * (p - distances[2]));
     }
     printPolygonInfo(): void {
-        console.log(`Number of angels: ${this.polygonNumberOfAngels}`);
-        console.log("Angels:");
-        this.polygonAngles.forEach((angel)=>angel.logAsArray());
+        console.log(`Number of vertices: ${this.polygonNumberOfVertices}`);
+        console.log("Vertices:");
+        this.polygonAngles.forEach((vertice)=>vertice.logAsArray());
         console.log("Polygon color: ");
         this.polygonColor ? this.polygonColor.printColors() : console.log("undefined");
         console.log(`Area: ${this.getPolygonArea().toFixed(2)}`);
@@ -33,17 +33,17 @@ export class Polygon {
     }
     getPolygonArea(): number {
         let fullArea: number = 0;
-        for (let i = 0; i < this.polygonNumberOfAngels - 2; i++) {
+        for (let i = 0; i < this.polygonNumberOfVertices - 2; i++) {
             fullArea += this.getTriangleArea(new Array(this.polygonAngles[0], this.polygonAngles[i + 1], this.polygonAngles[i + 2]));
         }
         return fullArea;
     }
     getPerimiter(): number {
         let perimeter: number = 0;
-        for (let i = 0; i < this.polygonNumberOfAngels - 1; i++) {
+        for (let i = 0; i < this.polygonNumberOfVertices - 1; i++) {
             perimeter += this.polygonAngles[i].getDistance(this.polygonAngles[i + 1])
         }
-        perimeter += this.polygonAngles[this.polygonNumberOfAngels - 1].getDistance(this.polygonAngles[0]);
+        perimeter += this.polygonAngles[this.polygonNumberOfVertices - 1].getDistance(this.polygonAngles[0]);
         return perimeter;
     }
     getPolygonColor(): PolygonColor {

@@ -1,4 +1,4 @@
-export class Point {
+export default class Point {
     private _x;
     private _y;
 

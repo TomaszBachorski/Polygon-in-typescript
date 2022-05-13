@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Polygon = void 0;
 class Polygon {
     constructor(n, vertices, colors) {
         this.polygonNumberOfVertices = n;
@@ -47,7 +46,7 @@ class Polygon {
         return this.polygonColor;
     }
 }
-exports.Polygon = Polygon;
+exports.default = Polygon;
 class PolygonColor {
     constructor(_r, _g, _b) {
         this.r = this.setColorConstructor(_r) || 0;

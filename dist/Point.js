@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Point = void 0;
 class Point {
     constructor(x, y) {
         this._x = x;
@@ -28,4 +27,4 @@ class Point {
         console.log(`[${this._x}, ${this._y}]`);
     }
 }
-exports.Point = Point;
+exports.default = Point;

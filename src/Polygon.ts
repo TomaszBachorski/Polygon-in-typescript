@@ -1,9 +1,9 @@
-import { Point } from "./Point";
+import Point from "./Point";
 
 //Default types
 type rgb = "r" | "g" | "b";
 
-export class Polygon {
+export default class Polygon {
     private polygonNumberOfVertices: number;
     private polygonAngles: Point[];
     private polygonColor?: PolygonColor;
@@ -25,8 +25,7 @@ export class Polygon {
     printPolygonInfo(): void {
         console.log(`Number of vertices: ${this.polygonNumberOfVertices}`);
         console.log("Vertices:");
-        this.polygonAngles.forEach((vertice)=>vertice.logAsArray());
-        console.log("Polygon color: ");
+        this.polygonAngles.forEach((vertice) => vertice.logAsArray());console.log("Polygon color: ");
         this.polygonColor ? this.polygonColor.printColors() : console.log("undefined");
         console.log(`Area: ${this.getPolygonArea().toFixed(2)}`);
         console.log(`Perimeter: ${this.getPerimiter().toFixed(2)}`);
@@ -62,7 +61,7 @@ class PolygonColor {
         this.b = this.setColorConstructor(_b) || 0;
     }
     private setColorConstructor(value: number): number {
-        if (value<0 || value>255) throw new Error("Color representation must be higher than 0 and lower than 255(rgb)");
+        if (value < 0 || value > 255) throw new Error("Color representation must be higher than 0 and lower than 255(rgb)");
         return value;
     }
     getColor(colorRepresentation: rgb): number {
@@ -72,7 +71,7 @@ class PolygonColor {
         return new Array(this.r, this.g, this.b);
     }
     setColor(colorRepresentation: rgb, value: number): void {
-        if (value<0 || value>255) throw new Error("Color representation must be higher than 0 and lower than 255(rgb)");
+        if (value < 0 || value > 255) throw new Error("Color representation must be higher than 0 and lower than 255(rgb)");
         this[colorRepresentation] = value;
     }
     printColors(): void {

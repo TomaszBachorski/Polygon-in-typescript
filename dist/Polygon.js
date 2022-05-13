@@ -6,6 +6,8 @@ class Polygon {
         this.polygonAngles = vertices;
         if (colors)
             this.polygonColor = new PolygonColor(...colors);
+        else
+            this.polygonColor = new PolygonColor();
     }
     getTriangleArea(points) {
         let distances = new Array();
@@ -21,7 +23,7 @@ class Polygon {
         console.log("Vertices:");
         this.polygonAngles.forEach((vertice) => vertice.logAsArray());
         console.log("Polygon color: ");
-        this.polygonColor ? this.polygonColor.printColors() : console.log("undefined");
+        this.polygonColor.printColors();
         console.log(`Area: ${this.getPolygonArea().toFixed(2)}`);
         console.log(`Perimeter: ${this.getPerimiter().toFixed(2)}`);
     }
@@ -49,9 +51,9 @@ class Polygon {
 exports.default = Polygon;
 class PolygonColor {
     constructor(_r, _g, _b) {
-        this.r = this.setColorConstructor(_r) || 0;
-        this.g = this.setColorConstructor(_g) || 0;
-        this.b = this.setColorConstructor(_b) || 0;
+        this.r = this.setColorConstructor(_r || 0);
+        this.g = this.setColorConstructor(_g || 0);
+        this.b = this.setColorConstructor(_b || 0);
     }
     setColorConstructor(value) {
         if (value < 0 || value > 255)

@@ -6,12 +6,13 @@ type rgb = "r" | "g" | "b";
 export default class Polygon {
     private polygonNumberOfVertices: number;
     private polygonAngles: Point[];
-    private polygonColor?: PolygonColor;
+    private polygonColor: PolygonColor;
 
     constructor(n: number, vertices: Point[], colors?: [number, number, number]) {
         this.polygonNumberOfVertices = n;
         this.polygonAngles = vertices;
         if (colors) this.polygonColor = new PolygonColor(...colors);
+        else this.polygonColor = new PolygonColor();
     }
     private getTriangleArea(points: Point[]): number {
         let distances = new Array();
@@ -26,7 +27,7 @@ export default class Polygon {
         console.log(`Number of vertices: ${this.polygonNumberOfVertices}`);
         console.log("Vertices:");
         this.polygonAngles.forEach((vertice) => vertice.logAsArray());console.log("Polygon color: ");
-        this.polygonColor ? this.polygonColor.printColors() : console.log("undefined");
+        this.polygonColor.printColors()
         console.log(`Area: ${this.getPolygonArea().toFixed(2)}`);
         console.log(`Perimeter: ${this.getPerimiter().toFixed(2)}`);
     }
@@ -55,10 +56,10 @@ class PolygonColor {
     private r;
     private g;
     private b;
-    constructor(_r: number, _g: number, _b: number) {
-        this.r = this.setColorConstructor(_r) || 0;
-        this.g = this.setColorConstructor(_g) || 0;
-        this.b = this.setColorConstructor(_b) || 0;
+    constructor(_r?: number, _g?: number, _b?: number) {
+        this.r = this.setColorConstructor(_r || 0);
+        this.g = this.setColorConstructor(_g || 0);
+        this.b = this.setColorConstructor(_b || 0);
     }
     private setColorConstructor(value: number): number {
         if (value < 0 || value > 255) throw new Error("Color representation must be higher than 0 and lower than 255(rgb)");
